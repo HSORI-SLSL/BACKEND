@@ -4,14 +4,9 @@ import pandas as pd
 import requests
 import tensorflow as tf
 import torch
-#from transformers import AutoModelForCausalLM
-#from collections.abc import Mapping
+
 from utils.BotServer import BotServer
-#from models.gpt_model import GenerateModel
-"""from utils.Preprocess import Preprocess
-from utils.FindAnswer import FindAnswer
-from models.intent.IntentModel import IntentModel
-from train_tools.qna.create_embedding_data import create_embedding_data"""
+from models.IntentModel import IntentModel
 
 # tensorflow gpu 메모리 할당
 # tf는 시작시 메모리를 최대로 할당하기 때문에, 0번 GPU를 2GB 메모리만 사용하도록 설정했음.
@@ -24,6 +19,32 @@ if gpus:
                                                 [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=2048)])
     except RuntimeError as e:
         print(e)
+
+"""
+# 로그 기능 구현
+from logging import handlers
+import logging
+
+
+#log settings
+LogFormatter = logging.Formatter('%(asctime)s,%(message)s')
+
+
+#handler settings
+LogHandler = handlers.TimedRotatingFileHandler(filename='./logs/chatbot.log', when='midnight', interval=1, encoding='utf-8')
+LogHandler.setFormatter(LogFormatter)
+LogHandler.suffix = "%Y%m%d"
+
+
+#logger set
+Logger = logging.getLogger()
+Logger.setLevel(logging.ERROR)
+Logger.addHandler(LogHandler)
+
+# use logger example
+# Logger.info("car is coming")
+"""
+
 
 def to_client(conn, addr):
     try:
@@ -43,11 +64,8 @@ def to_client(conn, addr):
         query = recv_json_data['Query']
 
         # 답변 생성
-        generate = openai.ChatCompletion.create(model="gpt-3.5-turbo", # 사용할 모델
-                                                # 보낼 메세지 목록
-                                                messages=[{"role": "system", "content":"넌 챗봇이야."},
-                                                          {"role": "user", "content": query}]) # 사용자
-        answer = generate.choices[0].message.content
+
+        answer = IntentModel.generate_answer(query)
 
         send_json_data_str = {
             "Answer": answer,
