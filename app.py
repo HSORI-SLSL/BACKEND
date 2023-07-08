@@ -14,6 +14,10 @@ app = Flask(__name__)
 cors = CORS(app)
 
 
+# 전역 변수로 채팅 로그 리스트 초기화
+chat_log = []
+
+
 # 챗봇 엔진 서버와 통신
 def get_answer_from_engine(bottype, query):
 
@@ -27,11 +31,41 @@ def get_answer_from_engine(bottype, query):
         'BotType': bottype
     }
     message = json.dumps(json_data)
+    chat_log.append(message)
     mySocket.send(message.encode())
 
     # 챗봇 엔진 답변 출력
     data = mySocket.recv(2048).decode()
     ret_data = json.loads(data)
+
+    # 챗봇 엔진 서버 연결 소켓 닫기
+    mySocket.close()
+
+    return ret_data
+
+# 챗봇 엔진 서버와 퀴즈
+def get_quiz_from_engine(bottype):
+
+    # 챗봇 엔진 서버 연결
+    mySocket = socket.socket()
+    mySocket.connect((host, port))
+
+    # 챗봇 엔진 질의 요청
+    if chat_log:
+        message = chat_log.pop(-1)
+        json_data = {
+            'Query': message,
+            'BotType': bottype
+        }
+        mySocket.send(message.encode())
+
+        # 챗봇 엔진 답변 출력
+        data = mySocket.recv(2048).decode()
+        ret_data = json.loads(data)
+    else:
+        ret_data = {
+            'Answer': '대화를 통해 학습을 진행해 보세요.'
+        }
 
     # 챗봇 엔진 서버 연결 소켓 닫기
     mySocket.close()
@@ -46,6 +80,10 @@ def query(bot_type):
     if bot_type == 'NORMAL':
         # 일반 질의응답 API
         ret = get_answer_from_engine(bottype=bot_type, query=body['query'])
+        return jsonify(ret)
+    elif bot_type == 'QUIZ':
+        # 퀴즈출제 API
+        ret = get_quiz_from_engine(bottype=bot_type)
         return jsonify(ret)
 
 

@@ -20,7 +20,7 @@ while True:
     # 챗봇 엔진 질의 요청
     json_data = {
         'Query' : query,
-        'BotType' : "TEST"
+        'BotType' : "NORMAL"
     }
     message = json.dumps(json_data)
     mySocket.send(message.encode())
@@ -30,6 +30,9 @@ while True:
     ret_data = json.loads(data)
     print("답변 : ")
     print(ret_data['Answer'])
+    print("\n")
+    print("레이블 : ")
+    print(ret_data['label'])
     print("\n")
 
 # 챗봇 엔진 서버 연결 소켓 닫기

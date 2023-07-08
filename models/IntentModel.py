@@ -17,6 +17,7 @@ df = pd.read_excel('models/sejong1000QA.xlsx')
 # Extract questions and answers from the DataFrame
 questions = df['Q'].tolist()
 answers = df['A'].tolist()
+labels = df['label'].tolist()
 
 # Define the tokenizer for FastAI
 class TransformersTokenizer(Transform):
@@ -49,8 +50,9 @@ class IntentModel:
 
         # Retrieve the corresponding answer
         answer = answers[most_similar_idx]
+        lab = labels[most_similar_idx]
 
-        return answer
+        return answer, lab
 
 
 # Encode all stored questions

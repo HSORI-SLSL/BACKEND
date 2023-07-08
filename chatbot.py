@@ -7,6 +7,7 @@ import torch
 
 from utils.BotServer import BotServer
 from models.IntentModel import IntentModel
+from models.QuizModel import QuizModel
 
 # tensorflow gpu 메모리 할당
 # tf는 시작시 메모리를 최대로 할당하기 때문에, 0번 GPU를 2GB 메모리만 사용하도록 설정했음.
@@ -64,11 +65,14 @@ def to_client(conn, addr):
         query = recv_json_data['Query']
 
         # 답변 생성
-
-        answer = IntentModel.generate_answer(query)
+        if recv_json_data['BotType'] == 'NORMAL':
+            answer, lab = IntentModel.generate_answer(query)
+        elif recv_json_data['BotType'] == 'QUIZ':
+            answer, lab = QuizModel.get_quiz(query)
 
         send_json_data_str = {
             "Answer": answer,
+            "label": lab
         }
         message = json.dumps(send_json_data_str) # json객체 문자열로 반환
         conn.send(message.encode()) # 응답 전송
