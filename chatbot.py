@@ -21,31 +21,6 @@ if gpus:
     except RuntimeError as e:
         print(e)
 
-"""
-# 로그 기능 구현
-from logging import handlers
-import logging
-
-
-#log settings
-LogFormatter = logging.Formatter('%(asctime)s,%(message)s')
-
-
-#handler settings
-LogHandler = handlers.TimedRotatingFileHandler(filename='./logs/chatbot.log', when='midnight', interval=1, encoding='utf-8')
-LogHandler.setFormatter(LogFormatter)
-LogHandler.suffix = "%Y%m%d"
-
-
-#logger set
-Logger = logging.getLogger()
-Logger.setLevel(logging.ERROR)
-Logger.addHandler(LogHandler)
-
-# use logger example
-# Logger.info("car is coming")
-"""
-
 
 def to_client(conn, addr):
     try:

@@ -31,12 +31,17 @@ def get_answer_from_engine(bottype, query):
         'BotType': bottype
     }
     message = json.dumps(json_data)
-    chat_log.append(message)
+
     mySocket.send(message.encode())
 
     # 챗봇 엔진 답변 출력
     data = mySocket.recv(2048).decode()
     ret_data = json.loads(data)
+
+    answer = ret_data['answer']
+    lab = ret_data['lab']
+    # answer와 lab을 쉼표로 이어서 chat_log에 추가
+    chat_log.append(f"{answer},{lab}")
 
     # 챗봇 엔진 서버 연결 소켓 닫기
     mySocket.close()
@@ -52,7 +57,7 @@ def get_quiz_from_engine(bottype):
 
     # 챗봇 엔진 질의 요청
     if chat_log:
-        message = chat_log.pop(-1)
+        message = chat_log.pop()
         json_data = {
             'Query': message,
             'BotType': bottype
