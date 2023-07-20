@@ -59,7 +59,7 @@ def get_quiz_from_engine(bottype):
     if chat_log:
         message = chat_log.pop()
         json_data = {
-            'Query': message,
+            'Query': '',
             'BotType': bottype
         }
         mySocket.send(message.encode())
@@ -88,7 +88,7 @@ def query(bot_type):
         return jsonify(ret)
     elif bot_type == 'QUIZ':
         # 퀴즈출제 API
-        ret = get_quiz_from_engine(bottype=bot_type, query=body['query'])
+        ret = get_quiz_from_engine(bottype=bot_type)
         return jsonify(ret)
 
 
