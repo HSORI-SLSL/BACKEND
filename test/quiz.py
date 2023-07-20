@@ -15,30 +15,31 @@ mySocket.connect((host, port))
 while chat_log:
     # 챗봇 엔진 질의 요청
     if chat_log:
-        message = chat_log.pop()
+        last_question = chat_log.pop()
         json_data = {
-            'Query': message,
+            'Query': last_question,
             'BotType': 'QUIZ'
         }
+        message = json.dumps(json_data)
+
         mySocket.send(message.encode())
 
         # 챗봇 엔진 답변 출력
         data = mySocket.recv(2048).decode()
         ret_data = json.loads(data)
+
+        print("퀴즈 : ")
+        print(ret_data['Answer'])
+        print("\n")
+        print("답 : ")
+        print(ret_data['label'])
+        print("\n")
+
     else:
         ret_data = {
             'Answer': '대화를 통해 학습을 진행해 보세요.'
         }
 
-    # 챗봇 엔진 답변 출력
-    data = mySocket.recv(2048).decode()
-    ret_data = json.loads(data)
-    print("퀴즈 : ")
-    print(ret_data['Answer'])
-    print("\n")
-    print("답 : ")
-    print(ret_data['label'])
-    print("\n")
 
 # 챗봇 엔진 서버 연결 소켓 닫기
 mySocket.close()

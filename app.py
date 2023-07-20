@@ -57,11 +57,13 @@ def get_quiz_from_engine(bottype):
 
     # 챗봇 엔진 질의 요청
     if chat_log:
-        message = chat_log.pop()
+        last_question = chat_log.pop()
         json_data = {
-            'Query': '',
-            'BotType': bottype
+            'Query': last_question,
+            'BotType': 'QUIZ'
         }
+        message = json.dumps(json_data)
+
         mySocket.send(message.encode())
 
         # 챗봇 엔진 답변 출력
