@@ -38,8 +38,8 @@ def get_answer_from_engine(bottype, query):
     data = mySocket.recv(2048).decode()
     ret_data = json.loads(data)
 
-    answer = ret_data['answer']
-    lab = ret_data['lab']
+    answer = ret_data['Answer']
+    lab = ret_data['label']
     # answer와 lab을 쉼표로 이어서 chat_log에 추가
     chat_log.append(f"{answer},{lab}")
 
@@ -88,7 +88,7 @@ def query(bot_type):
         return jsonify(ret)
     elif bot_type == 'QUIZ':
         # 퀴즈출제 API
-        ret = get_quiz_from_engine(bottype=bot_type)
+        ret = get_quiz_from_engine(bottype=bot_type, query=body['query'])
         return jsonify(ret)
 
 
