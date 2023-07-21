@@ -26,7 +26,7 @@
 ## 설치 및 실행 방법
 1. 이 리포지토리를 클론합니다.
 
-git clone https://github.com/yourusername/your-repo.git
+git clone https://github.com/HSORI-SLSL/BackEnd.git
 
 
 2. 필요한 패키지를 설치합니다.
