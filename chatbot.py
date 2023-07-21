@@ -1,9 +1,8 @@
 import threading
 import json
-import pandas as pd
 import requests
 import tensorflow as tf
-import torch
+
 
 from utils.BotServer import BotServer
 from models.IntentModel import IntentModel

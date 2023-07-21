@@ -3,7 +3,8 @@ from flask import *
 import socket
 import json
 from flask_cors import CORS
-
+from crawling.crawling_watcha import crawl_watcha
+from crawling.crawling_youtube import crawl_youtube
 
 # 챗봇 엔진 서버 정보
 host = "127.0.0.1"      # 챗봇 엔진 서버 IP
@@ -91,6 +92,19 @@ def query(bot_type):
         ret = get_quiz_from_engine(bottype=bot_type)
         return jsonify(ret)
 
+# 왓차피디아 크롤링
+@app.route('/query/crawl_watcha', methods=['GET'])
+def crawl_watcha_api():
+    request.get_json()
+    crawl_watcha()
+    return jsonify({'message': 'Watcha crawling complete.'})
+
+# 유튜브 크롤링
+@app.route('/query/crawl_youtube', methods=['GET'])
+def crawl_youtube_api():
+    crawl_youtube()
+    return jsonify({'message': 'YouTube crawling complete.'})
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5001)
