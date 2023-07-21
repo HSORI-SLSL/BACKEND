@@ -45,6 +45,8 @@ python app.py
 ## 기술 스택
 - Python
 - Flask (웹 프레임워크)
-- TensorFlow (자연어 처리)
-- SQLite (데이터베이스)
-"""
+- PyTorch (자연어 처리)
+- MySQL (데이터베이스)
+- AWS EC2
+- AWS RDS
+
