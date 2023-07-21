@@ -35,9 +35,10 @@ git clone https://github.com/yourusername/your-repo.git
 pip install -r requirements.txt
 
 
-3. 백엔드 서버를 실행합니다.
+3. 백엔드 서버를 실행하고 챗봇엔진을 실행합니다.
 
-python app.py
+flask run
+python chatbot.py
 
 
 4. 프론트엔드와 연동하여 챗봇을 사용합니다.
