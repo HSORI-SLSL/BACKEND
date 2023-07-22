@@ -106,8 +106,8 @@ def crawl_watcha_api():
 @app.route('/query/crawl_youtube', methods=['GET'])
 def crawl_youtube_api():
     crawl_youtube()
-    return jsonify({'message': 'YouTube crawling complete...'})
+    return jsonify({'message': 'YouTube crawling complete.'})
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=5000)
