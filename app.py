@@ -3,7 +3,7 @@ from flask import *
 import socket
 import json
 from flask_cors import CORS
-from crawling.crawling_watcha import crawl_watcha
+from crawling.crawling_watcha import crawl_watcha_contents
 from crawling.crawling_youtube import crawl_youtube
 
 # 챗봇 엔진 서버 정보
@@ -69,6 +69,7 @@ def get_quiz_from_engine(bottype):
 
         # 챗봇 엔진 답변 출력
         data = mySocket.recv(2048).decode()
+        print("Received data:", data)
         ret_data = json.loads(data)
     else:
         ret_data = {
@@ -98,7 +99,7 @@ def query(bot_type):
 @app.route('/query/crawl_watcha', methods=['GET'])
 def crawl_watcha_api():
     request.get_json()
-    crawl_watcha()
+    crawl_watcha_contents()
     return jsonify({'message': 'Watcha crawling complete.'})
 
 # 유튜브 크롤링

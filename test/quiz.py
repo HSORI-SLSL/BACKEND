@@ -26,6 +26,7 @@ while chat_log:
 
         # 챗봇 엔진 답변 출력
         data = mySocket.recv(2048).decode()
+        print("Received data:", data)
         ret_data = json.loads(data)
 
         print("퀴즈 : ")

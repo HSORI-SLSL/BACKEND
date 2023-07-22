@@ -1,8 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-def crawl_watcha():
-    # Chrome 드라이버 실행 경로 설정
+def crawl_watcha_contents():
     driver_path = 'path/to/chromedriver'
 
     # Chrome 드라이버 초기화
@@ -12,11 +11,40 @@ def crawl_watcha():
     driver.get('https://pedia.watcha.com/ko-KR/search?query=%EC%84%B8%EC%A2%85%EB%8C%80%EC%99%95&category=contents')
 
     # 요소 탐색
-    elements = driver.find_elements(By.CLASS_NAME, 'css-usdi1z')
+    elements = driver.find_elements(By.CLASS_NAME, 'css-1s4ow07')
 
-    # 각 요소의 텍스트 출력
+    # JSON 데이터를 담을 리스트
+    contents_list = []
+
     for element in elements:
-        print(element.text)
+        # 텍스트 가져오기
+        text = element.text
+
+        # 이미지 URL 가져오기
+        img_tags = element.find_elements(By.TAG_NAME, 'img')
+        img_urls = [img.get_attribute('src') for img in img_tags]
+
+        # 텍스트를 줄바꿈 문자 기준으로 분리하여 정보 추출
+        lines = text.split('\n')
+        for i in range(0, len(lines), 3):
+            title = lines[i]
+            info = lines[i + 1]
+            category = lines[i + 2]
+            img_url = img_urls[i // 3]
+
+            # 각 정보를 딕셔너리로 만들어 리스트에 추가
+            content = {
+                "title": title,
+                "info": info,
+                "category": category,
+                "img_urls": img_url  # 이미지 URL 추가
+            }
+            contents_list.append(content)
 
     # 드라이버 종료
     driver.quit()
+
+    # 최종 결과를 JSON 형식으로 출력
+    print(json.dumps(contents_list, ensure_ascii=False, indent=2))
+
+    return contents_list
