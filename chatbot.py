@@ -1,7 +1,7 @@
 import threading
 import json
 import requests
-import tensorflow as tf
+#import tensorflow as tf
 
 
 from utils.BotServer import BotServer
@@ -10,7 +10,7 @@ from models.QuizModel import QuizModel
 
 # tensorflow gpu 메모리 할당
 # tf는 시작시 메모리를 최대로 할당하기 때문에, 0번 GPU를 2GB 메모리만 사용하도록 설정했음.
-
+'''
 gpus = tf.config.experimental.list_physical_devices('GPU')
 if gpus:
     try:
@@ -19,7 +19,7 @@ if gpus:
                                                 [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=2048)])
     except RuntimeError as e:
         print(e)
-
+'''
 
 def to_client(conn, addr):
     try:

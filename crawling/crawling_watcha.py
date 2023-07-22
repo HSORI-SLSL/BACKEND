@@ -1,6 +1,13 @@
+'''
+import json
+# crawling_watcha.py 파일 수정
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import json
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+
+from collections.abc import Mapping
 
 def crawl_watcha_contents(query):
     driver_path = 'path/to/chromedriver'
@@ -50,3 +57,4 @@ def crawl_watcha_contents(query):
     print(json.dumps(contents_list, ensure_ascii=False, indent=2))
 
     return contents_list
+'''
