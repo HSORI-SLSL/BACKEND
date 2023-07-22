@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import json
 
 def crawl_watcha_contents():
     driver_path = 'path/to/chromedriver'
