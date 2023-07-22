@@ -2,14 +2,15 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import json
 
-def crawl_watcha_contents():
+def crawl_watcha_contents(query):
     driver_path = 'path/to/chromedriver'
+    query = query
 
     # Chrome 드라이버 초기화
     driver = webdriver.Chrome()
 
     # 페이지 로드
-    driver.get('https://pedia.watcha.com/ko-KR/search?query=%EC%84%B8%EC%A2%85%EB%8C%80%EC%99%95&category=contents')
+    driver.get('https://pedia.watcha.com/ko-KR/search?query={query}&category=contents')
 
     # 요소 탐색
     elements = driver.find_elements(By.CLASS_NAME, 'css-1s4ow07')

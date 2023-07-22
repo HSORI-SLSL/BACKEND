@@ -96,11 +96,11 @@ def query(bot_type):
         return jsonify(ret)
 
 # 왓차피디아 크롤링
-@app.route('/query/crawl_watcha', methods=['GET'])
+@app.route('/query/crawl_watcha', methods=['GET', 'POST'])
 def crawl_watcha_api():
-    request.get_json()
-    crawl_watcha_contents()
-    return jsonify({'message': 'Watcha crawling complete.'})
+    body = request.get_json()
+    ret = crawl_watcha_contents(query=body['query'])
+    return jsonify(ret)
 
 # 유튜브 크롤링
 @app.route('/query/crawl_youtube', methods=['GET'])
