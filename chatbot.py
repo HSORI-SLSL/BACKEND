@@ -53,7 +53,7 @@ def to_client(conn, addr):
 
         # CORS 헤더 설정
         response_headers = {
-            'Access-Control-Allow-Origin': 'https://046b-182-219-193-48.ngrok-free.app',
+            'Access-Control-Allow-Origin': 'https://02de-221-142-144-4.ngrok-free.app',
             'Access-Control-Allow-Methods': 'GET, POST',
             'Access-Control-Allow-Headers': 'Content-Type'
         }

@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify, abort, render_template
 from flask import *
 import socket
 import json
-from flask_cors import CORS
-#from crawling.crawling_watcha import crawl_watcha_contents
-#from crawling.crawling_youtube import crawl_youtube
+from flask_cors import CORS, cross_origin
+from crawling.crawling_watcha import crawl_watcha_contents
+from crawling.crawling_youtube import crawl_youtube_contents
 
 # 챗봇 엔진 서버 정보
 host = "127.0.0.1"      # 챗봇 엔진 서버 IP
@@ -96,7 +96,7 @@ def query(bot_type):
         # 퀴즈출제 API
         ret = get_quiz_from_engine(bottype=bot_type)
         return jsonify(ret)
-'''
+
 # 왓차피디아 크롤링
 @app.route('/query/crawl_watcha', methods=['GET', 'POST'])
 @cross_origin(origin='*', headers=['Content-Type'])
@@ -110,9 +110,9 @@ def crawl_watcha_api():
 @cross_origin(origin='*', headers=['Content-Type'])
 def crawl_youtube_api():
     body = request.get_json()
-    ret = crawl_youtube(query=body['query'])
+    ret = crawl_youtube_contents(query=body['query'])
     return jsonify(ret)
-'''
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

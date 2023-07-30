@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-def crawl_youtube():
+def crawl_youtube_contents():
     # Chrome 드라이버 실행 경로 설정
     driver_path = 'path/to/chromedriver'
 

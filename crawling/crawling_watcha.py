@@ -1,4 +1,3 @@
-'''
 import json
 # crawling_watcha.py 파일 수정
 from selenium import webdriver
@@ -17,7 +16,7 @@ def crawl_watcha_contents(query):
     driver = webdriver.Chrome()
 
     # 페이지 로드
-    driver.get('https://pedia.watcha.com/ko-KR/search?query={query}&category=contents')
+    driver.get('https://pedia.watcha.com/ko-KR/search?query=세종대왕&category=contents')
 
     # 요소 탐색
     elements = driver.find_elements(By.CLASS_NAME, 'css-1s4ow07')
@@ -57,4 +56,3 @@ def crawl_watcha_contents(query):
     print(json.dumps(contents_list, ensure_ascii=False, indent=2))
 
     return contents_list
-'''
