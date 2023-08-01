@@ -19,8 +19,6 @@ cors = CORS(app)
 chat_log = []
 
 
-
-
 # 챗봇 엔진 서버와 통신
 def get_answer_from_engine(bottype, query):
 
@@ -50,6 +48,7 @@ def get_answer_from_engine(bottype, query):
     mySocket.close()
 
     return ret_data
+
 
 # 챗봇 엔진 서버와 퀴즈
 def get_quiz_from_engine(bottype):
@@ -84,6 +83,31 @@ def get_quiz_from_engine(bottype):
     return ret_data
 
 
+def get_crawl_from_engine(bottype, query):
+    # 챗봇 엔진 서버 연결
+    mySocket = socket.socket()
+    mySocket.connect((host, port))
+
+    # 챗봇 엔진 질의 요청
+    json_data = {
+        'Query': query,
+        'BotType': bottype
+    }
+    message = json.dumps(json_data)
+
+    mySocket.send(message.encode())
+
+    # 챗봇 엔진 답변 출력
+    data = mySocket.recv(2048).decode()
+    ret_data = json.loads(data)
+
+    # 챗봇 엔진 서버 연결 소켓 닫기
+    mySocket.close()
+
+    return ret_data
+
+
+
 # 챗봇 엔진 query 전송 API
 @app.route('/query/<bot_type>', methods=['GET', 'POST'])
 def query(bot_type):
@@ -96,7 +120,11 @@ def query(bot_type):
         # 퀴즈출제 API
         ret = get_quiz_from_engine(bottype=bot_type)
         return jsonify(ret)
+    elif bot_type == 'CRAWL':
+        ret = get_crawl_from_engine(bottype=bot_type, query=body['query'])
+        return jsonify(ret)
 
+"""
 # 왓차피디아 크롤링
 @app.route('/query/crawl_watcha', methods=['GET', 'POST'])
 @cross_origin(origin='*', headers=['Content-Type'])
@@ -112,7 +140,7 @@ def crawl_youtube_api():
     body = request.get_json()
     ret = crawl_youtube_contents(query=body['query'])
     return jsonify(ret)
-
+"""
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

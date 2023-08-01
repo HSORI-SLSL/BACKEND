@@ -16,7 +16,8 @@ def crawl_watcha_contents(query):
     driver = webdriver.Chrome()
 
     # 페이지 로드
-    driver.get('https://pedia.watcha.com/ko-KR/search?query=세종대왕&category=contents')
+    url = 'https://pedia.watcha.com/ko-KR/search?query=' + query + '&category=contents'
+    driver.get(url)
 
     # 요소 탐색
     elements = driver.find_elements(By.CLASS_NAME, 'css-1s4ow07')
