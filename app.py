@@ -84,7 +84,7 @@ def get_quiz_from_engine(bottype):
 
 
 def get_crawl_from_engine(bottype, query):
-    # 챗봇 엔진 서버 연결
+    '''# 챗봇 엔진 서버 연결
     mySocket = socket.socket()
     mySocket.connect((host, port))
 
@@ -99,11 +99,18 @@ def get_crawl_from_engine(bottype, query):
 
     # 챗봇 엔진 답변 출력
     data = mySocket.recv(2048).decode()
+    print(data)
     ret_data = json.loads(data)
 
     # 챗봇 엔진 서버 연결 소켓 닫기
     mySocket.close()
 
+    return ret_data'''
+    # 크롤링 함수 호출
+    contents_list = crawl_watcha_contents(query)
+    ret_data = {
+        "contents": contents_list
+    }
     return ret_data
 
 

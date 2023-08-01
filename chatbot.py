@@ -52,8 +52,6 @@ def to_client(conn, addr):
                 "Answer": answer,
                 "label": lab
             }
-        elif recv_json_data['BotType'] == 'CRAWL':
-            send_json_data_str = crawl_watcha_contents(query)
 
         message = json.dumps(send_json_data_str) # json객체 문자열로 반환
         conn.send(message.encode()) # 응답 전송

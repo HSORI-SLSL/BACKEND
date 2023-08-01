@@ -54,6 +54,6 @@ def crawl_watcha_contents(query):
     driver.quit()
 
     # 최종 결과를 JSON 형식으로 출력
-    print(json.dumps(contents_list, ensure_ascii=False, indent=2))
+    #print(json.dumps(contents_list, ensure_ascii=False, indent=2))
 
     return contents_list
