@@ -34,7 +34,30 @@ def crawl_watcha_contents(query):
         img_tags = element.find_elements(By.TAG_NAME, 'img')
         img_urls = [img.get_attribute('src') for img in img_tags]
 
+        # 링크 가져오기
+        a_tags = element.find_elements(By.TAG_NAME, 'a')
+        hrefs = [a.get_attribute('href') for a in a_tags]
+
         # 텍스트를 줄바꿈 문자 기준으로 분리하여 정보 추출
+        lines = text.split('\n')
+        for i in range(0, len(lines), 3):
+            title = lines[i]
+            info = lines[i + 1]
+            category = lines[i + 2]
+            img_url = img_urls[i // 3]
+            href = hrefs[i // 3]
+
+            # 각 정보를 딕셔너리로 만들어 리스트에 추가
+            content = {
+                "title": title,
+                "info": info,
+                "category": category,
+                "img_urls": img_url,  # 이미지 URL 추가
+                "href": href  # 링크 추가
+            }
+            contents_list.append(content)
+
+        '''# 텍스트를 줄바꿈 문자 기준으로 분리하여 정보 추출
         lines = text.split('\n')
         for i in range(0, len(lines), 3):
             title = lines[i]
@@ -49,7 +72,7 @@ def crawl_watcha_contents(query):
                 "category": category,
                 "img_urls": img_url  # 이미지 URL 추가
             }
-            contents_list.append(content)
+            contents_list.append(content)'''
 
     # 드라이버 종료
     driver.quit()

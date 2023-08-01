@@ -4,7 +4,7 @@ import socket
 import json
 from flask_cors import CORS, cross_origin
 from crawling.crawling_watcha import crawl_watcha_contents
-from crawling.crawling_youtube import crawl_youtube_contents
+from crawling.crawling_youtube import youtube_search
 
 # 챗봇 엔진 서버 정보
 host = "127.0.0.1"      # 챗봇 엔진 서버 IP
@@ -83,31 +83,18 @@ def get_quiz_from_engine(bottype):
     return ret_data
 
 
-def get_crawl_from_engine(bottype, query):
-    '''# 챗봇 엔진 서버 연결
-    mySocket = socket.socket()
-    mySocket.connect((host, port))
-
-    # 챗봇 엔진 질의 요청
-    json_data = {
-        'Query': query,
-        'BotType': bottype
-    }
-    message = json.dumps(json_data)
-
-    mySocket.send(message.encode())
-
-    # 챗봇 엔진 답변 출력
-    data = mySocket.recv(2048).decode()
-    print(data)
-    ret_data = json.loads(data)
-
-    # 챗봇 엔진 서버 연결 소켓 닫기
-    mySocket.close()
-
-    return ret_data'''
+def get_crawl_from_watcha(bottype, query):
     # 크롤링 함수 호출
     contents_list = crawl_watcha_contents(query)
+    ret_data = {
+        "contents": contents_list
+    }
+    return ret_data
+
+
+def get_crawl_from_youtube(bottype, query):
+    # 크롤링 함수 호출
+    contents_list = youtube_search(query)
     ret_data = {
         "contents": contents_list
     }
@@ -128,26 +115,12 @@ def query(bot_type):
         ret = get_quiz_from_engine(bottype=bot_type)
         return jsonify(ret)
     elif bot_type == 'CRAWL':
-        ret = get_crawl_from_engine(bottype=bot_type, query=body['query'])
+        ret = get_crawl_from_watcha(bottype=bot_type, query=body['query'])
+        return jsonify(ret)
+    elif bot_type == 'CRAWLY':
+        ret = get_crawl_from_youtube(bottype=bot_type, query=body['query'])
         return jsonify(ret)
 
-"""
-# 왓차피디아 크롤링
-@app.route('/query/crawl_watcha', methods=['GET', 'POST'])
-@cross_origin(origin='*', headers=['Content-Type'])
-def crawl_watcha_api():
-    body = request.get_json()
-    ret = crawl_watcha_contents(query=body['query'])
-    return jsonify(ret)
-
-# 유튜브 크롤링
-@app.route('/query/crawl_youtube', methods=['GET', 'POST'])
-@cross_origin(origin='*', headers=['Content-Type'])
-def crawl_youtube_api():
-    body = request.get_json()
-    ret = crawl_youtube_contents(query=body['query'])
-    return jsonify(ret)
-"""
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

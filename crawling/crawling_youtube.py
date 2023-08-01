@@ -1,29 +1,49 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+#from oauth2client.tools import argparser
 
-def crawl_youtube_contents():
-    # Chrome 드라이버 실행 경로 설정
-    driver_path = 'path/to/chromedriver'
 
-    # Chrome 드라이버 초기화
-    driver = webdriver.Chrome()
+# Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
+# tab of
+#   https://cloud.google.com/console
+# Please ensure that you have enabled the YouTube Data API for your project.
+DEVELOPER_KEY = "AIzaSyACXUW6TG--uaoGqzuTR7o7CoYwl861VwY"
+YOUTUBE_API_SERVICE_NAME = "youtube"
+YOUTUBE_API_VERSION = "v3"
 
-    # 페이지 로드
-    driver.get('https://www.youtube.com/results?search_query=%EC%84%B8%EC%A2%85%EB%8C%80%EC%99%95')
+import json
 
-    # 요소 대기
-    wait = WebDriverWait(driver, 10)
-    elements = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, '.style-scope.ytd-video-renderer')))
+def youtube_search(options):
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
 
-    # 각 요소의 텍스트를 리스트에 저장
-    video_titles = [element.text for element in elements]
+    search_response = youtube.search().list(
+        q=options,
+        part="id,snippet",
+        maxResults=5  # Set the number of search results you want to retrieve (in this case, 5)
+    ).execute()
 
-    # 드라이버 종료
-    driver.quit()
+    videos = []
 
-    # 중복 제거 후 각 요소의 텍스트 출력
-    unique_titles = list(set(video_titles))
-    for title in unique_titles:
-        print(title)
+    for search_result in search_response.get("items", []):
+        if search_result["id"]["kind"] == "youtube#video":
+            video_id = search_result["id"]["videoId"]
+            video_title = search_result["snippet"]["title"]
+            channel_id = search_result["snippet"]["channelId"]
+            thumbnail_url = search_result["snippet"]["thumbnails"]["default"]["url"]
+            video_url = "https://www.youtube.com/watch?v=" + video_id
+
+            # Get the channel name using the channelId
+            channel_response = youtube.channels().list(
+                part="snippet",
+                id=channel_id
+            ).execute()
+            channel_name = channel_response["items"][0]["snippet"]["title"]
+
+            videos.append({
+                "title": video_title,
+                "channelName": channel_name,
+                "thumbnail": thumbnail_url,
+                "url": video_url
+            })
+
+    return videos
