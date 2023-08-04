@@ -10,7 +10,7 @@ from models.QuizModel import QuizModel
 from crawling.crawling_watcha import crawl_watcha_contents
 
 # tensorflow gpu 메모리 할당
-# tf는 시작시 메모리를 최대로 할당하기 때문에, 0번 GPU를 2GB 메모리만 사용하도록 설정했음.
+# tf는 시작시 메모리를 최대로 할당하기 때문에, 0번 GPU를 2GB 메모리만 사용하도록 설정
 '''
 gpus = tf.config.experimental.list_physical_devices('GPU')
 if gpus:
