@@ -20,7 +20,8 @@ from collections.abc import Mapping
     driver.get(url)
 
     # 요소 탐색
-    elements = driver.find_elements(By.CLASS_NAME, 'css-1s4ow07')
+    #elements = driver.find_elements(By.CLASS_NAME, 'css-1s4ow07')
+    elements = driver.find_elements(By.CLASS_NAME, 'css-1ofozqs e1w9y4r09')
 
     # JSON 데이터를 담을 리스트
     contents_list = []
@@ -62,8 +63,8 @@ from collections.abc import Mapping
     # 최종 결과를 JSON 형식으로 출력
     #print(json.dumps(contents_list, ensure_ascii=False, indent=2))
 
-    return contents_list
-'''
+    return contents_list'''
+
 
 
 # 딕셔너리를 사용하여 캐시된 데이터를 저장
@@ -84,7 +85,8 @@ def crawl_watcha_contents(query, use_cache=True):
     driver.get(url)
 
     # 요소 탐색
-    elements = driver.find_elements(By.CLASS_NAME, 'css-1s4ow07')
+    #elements = driver.find_elements(By.CLASS_NAME, 'css-1s4ow07')
+    elements = driver.find_elements(By.CLASS_NAME, 'css-1ofozqs')
 
     # JSON 데이터를 담을 리스트
     contents_list = []
