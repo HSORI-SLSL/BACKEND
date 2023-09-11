@@ -4,6 +4,9 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import tensorflow_hub as hub
 
+# 사용 예시
+data_path = 'C:\GP\BackEnd\models\sejong3000QA.csv'
+save_path = 'C:\GP\BackEnd\models\IntentModel.h5'
 
 def prepare_data_and_train_model(data_path, save_path):
     # Read the CSV dataset
@@ -44,7 +47,4 @@ def prepare_data_and_train_model(data_path, save_path):
     # Save the trained model
     model.save(save_path)
 
-# 사용 예시
-data_path = 'C:\GP\BackEnd\models\sejong3000QA.csv'
-save_path = 'C:\GP\BackEnd\models\IntentModel.h5'
 prepare_data_and_train_model(data_path, save_path)
