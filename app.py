@@ -101,7 +101,6 @@ def get_crawl_from_youtube(bottype, query):
     return ret_data
 
 
-
 # 챗봇 엔진 query 전송 API
 @app.route('/query/<bot_type>', methods=['GET', 'POST'])
 def query(bot_type):

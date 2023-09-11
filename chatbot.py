@@ -1,13 +1,10 @@
 import threading
 import json
 import requests
-#import tensorflow as tf
-
 
 from utils.BotServer import BotServer
 from models.IntentModel import IntentModel
 from models.QuizModel import QuizModel
-from crawling.crawling_watcha import crawl_watcha_contents
 
 # tensorflow gpu 메모리 할당
 # tf는 시작시 메모리를 최대로 할당하기 때문에, 0번 GPU를 2GB 메모리만 사용하도록 설정
@@ -41,7 +38,8 @@ def to_client(conn, addr):
 
         # 답변 생성
         if recv_json_data['BotType'] == 'NORMAL':
-            answer, lab = IntentModel.generate_answer(query)
+            lab = IntentModel.generate_answer(query)
+            answer = '하하'
             send_json_data_str = {
                 "Answer": answer,
                 "label": lab

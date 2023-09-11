@@ -1,25 +1,25 @@
-import pandas as pd
-import torch
-import transformers
-from transformers import GPT2LMHeadModel, GPT2TokenizerFast
-from fastai.text.all import *
-import re
-import fastai
-from sentence_transformers import SentenceTransformer, util
+from tensorflow import keras
+import tensorflow_hub as hub
+import numpy as np
+import tensorflow as tf
+class IntentModel:
 
-# Load the tokenizer and model
-tokenizer = GPT2TokenizerFast.from_pretrained("skt/kogpt2-base-v2")
-model = GPT2LMHeadModel.from_pretrained("skt/kogpt2-base-v2")
+    def generate_answer(question):
+        question = [question]
 
-# Read the CSV dataset
-df = pd.read_excel('models/sejong1000QA.xlsx')
+        # 모델 로드
+        '''load_options = tf.saved_model.LoadOptions(experimental_io_device="/job:localhost")
+        model = tf.saved_model.load("models/IntentModel.h5", options=load_options)'''
+        '''model = tf.keras.models.load_model("models/IntentModel.h5",
+                                           custom_objects={'KerasLayer': hub.KerasLayer})'''
 
-# Extract questions and answers from the DataFrame
-questions = df['Q'].tolist()
-answers = df['A'].tolist()
-labels = df['label'].tolist()
+        '''load_options = tf.saved_model.LoadOptions(experimental_io_device='/job:localhost', )'''
+        model = tf.keras.models.load_model("models/IntentModel.h5", custom_objects={'KerasLayer': hub.KerasLayer})
+        return [np.argmax(pred) for pred in model.predict(question)][0]
 
-# Define the tokenizer for FastAI
+
+
+'''# Define the tokenizer for FastAI
 class TransformersTokenizer(Transform):
     def __init__(self, tokenizer):
         self.tokenizer = tokenizer
@@ -57,3 +57,4 @@ class IntentModel:
 
 # Encode all stored questions
 question_embeddings = sentence_transformer_model.encode(questions)
+'''

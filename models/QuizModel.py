@@ -8,7 +8,7 @@ from sentence_transformers import SentenceTransformer, util
 
 # Load the tokenizer and model
 tokenizer = GPT2TokenizerFast.from_pretrained("skt/kogpt2-base-v2")
-model = GPT2LMHeadModel.from_pretrained("skt/kogpt2-base-v2")
+'''model = GPT2LMHeadModel.from_pretrained("skt/kogpt2-base-v2")'''
 
 # Read the CSV dataset
 df = pd.read_excel('models/Quiz_Dataset.xlsx')
