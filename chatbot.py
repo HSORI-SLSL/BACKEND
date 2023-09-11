@@ -1,7 +1,6 @@
 import threading
 import json
 import requests
-
 from utils.BotServer import BotServer
 from models.IntentModel import IntentModel
 from models.QuizModel import QuizModel

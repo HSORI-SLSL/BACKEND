@@ -2,6 +2,7 @@ from tensorflow import keras
 import tensorflow_hub as hub
 import numpy as np
 import tensorflow as tf
+
 class IntentModel:
 
     def generate_answer(question):
