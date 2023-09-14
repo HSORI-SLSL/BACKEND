@@ -5,8 +5,8 @@ import numpy as np
 import tensorflow_hub as hub
 
 # 사용 예시
-data_path = 'models/sejong3000QA.csv'
-save_path = 'models/IntentModel.h5'
+data_path = 'sejong3000QA.csv'
+save_path = 'IntentModel.h5'
 
 
 def prepare_data_and_train_model(data_path, save_path):
