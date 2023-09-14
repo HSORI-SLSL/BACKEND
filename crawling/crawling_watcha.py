@@ -28,17 +28,23 @@ def crawl_watcha_contents(query, use_cache=True):
         # 각 도서 정보 출력
         for book in books:
             title = book['volumeInfo']['title']
-            authors = ', '.join(book['volumeInfo']['authors'])
+            authors = book['volumeInfo'].get('authors', [])  # 'authors' 키가 없는 경우 빈 리스트 반환
+            if not authors:  # 'authors'가 빈 리스트이거나 None인 경우
+                continue  # content를 추가하지 않고 다음 루프로 넘어감
+            authors = ', '.join(authors)
             thumbnail_info = book['volumeInfo'].get('imageLinks', {})
             thumbnail = thumbnail_info.get('thumbnail', 'No Image')
+
             content = {
                 "title": title,
                 "authors": authors,
                 "thumbnail_info": thumbnail_info,
                 "thumbnail": thumbnail  # 이미지 URL 추가
-                #"href": href  # 링크 추가
+                # "href": href  # 링크 추가
             }
-            contents_list.append(content)
+            if thumbnail != 'No Image':
+                contents_list.append(content)
+
 
     except requests.exceptions.RequestException as e:
         print(f'Error: {e}')
