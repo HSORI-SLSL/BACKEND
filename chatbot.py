@@ -57,7 +57,7 @@ def to_client(conn, addr):
 
         # CORS 헤더 설정
         response_headers = {
-            'Access-Control-Allow-Origin': 'https://3.36.6.123:5000',
+            'Access-Control-Allow-Origin': 'https://3.36.6.123',
             'Access-Control-Allow-Methods': 'GET, POST',
             'Access-Control-Allow-Headers': 'Content-Type'
         }
