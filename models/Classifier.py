@@ -3,6 +3,7 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 import numpy as np
 import tensorflow_hub as hub
+import tensorflow_text
 
 # 사용 예시
 data_path = './sejong3000QA.csv'
