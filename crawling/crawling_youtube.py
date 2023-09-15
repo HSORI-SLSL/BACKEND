@@ -1,6 +1,4 @@
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-#from oauth2client.tools import argparser
 
 
 # Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
@@ -11,7 +9,6 @@ DEVELOPER_KEY = "AIzaSyACXUW6TG--uaoGqzuTR7o7CoYwl861VwY"
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
-import json
 
 '''def youtube_search(options):
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
@@ -50,6 +47,7 @@ import json
 
 # 캐시용 딕셔너리 초기화
 cache = {}
+
 
 def youtube_search(options):
     # 캐시에서 결과를 가져오기 시도
