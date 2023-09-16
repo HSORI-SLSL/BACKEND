@@ -1,4 +1,18 @@
-# Use the existing Flask app image as a base image
+# 베이스 이미지 설정
+FROM nvcr.io/nvidia/tensorrt:19.03-py3
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# 필요한 파일을 컨테이너에 복사
+COPY app.py .
+COPY chatbot.py .
+
+# Flask 애플리케이션 실행
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+
+
+'''# Use the existing Flask app image as a base image
 FROM python:3
 
 # Set the working directory to /usr/src/app
@@ -18,3 +32,4 @@ EXPOSE 5050
 
 # Command to start both Flask app and chatbot
 CMD [ "python", "./app.py" ]
+'''
