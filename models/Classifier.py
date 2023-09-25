@@ -33,18 +33,12 @@ def prepare_data_and_train_model(data_path, save_path):
     x_train = np.array([np.array(val) for val in x_train])  # reconstruct
     n_epochs = 20
 
-    earlystop_callback = tf.keras.callbacks.EarlyStopping(monitor="val_loss",
-                                                          patience=3,
-                                                          restore_best_weights=True)
-
     model.compile(optimizer="adam",
                   loss="categorical_crossentropy")
 
     model_fit = model.fit(x_train,
                           y_train,
-                          epochs=n_epochs,
-                          validation_data=(x_test, y_test),
-                          callbacks=[earlystop_callback])
+                          epochs=n_epochs)
 
     # Save the trained model
     model.save(save_path)
