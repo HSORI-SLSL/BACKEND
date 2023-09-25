@@ -7,7 +7,7 @@ from crawling.crawling_watcha import crawl_watcha_contents
 from crawling.crawling_youtube import youtube_search
 
 # 챗봇 엔진 서버 정보
-host = "127.0.0.1"      # 챗봇 엔진 서버 IP
+host = "3.36.6.123"      # 챗봇 엔진 서버 IP
 port = 5050             # 챗봇 엔진 port
 
 # Flask 애플리케이션
