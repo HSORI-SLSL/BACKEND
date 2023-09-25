@@ -5,7 +5,6 @@ from utils.BotServer import BotServer
 from models.IntentModel import IntentModel
 from models.QuizModel import QuizModel
 from models.GenerateModel import GenerateModel
-import tensorflow.contrib.resampler
 
 
 # tensorflow gpu 메모리 할당
