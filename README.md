@@ -1,8 +1,7 @@
 # BackEnd
 
 # 역사학습 인공지능 챗봇 (Backend)
-
-![챗봇 이미지](챗봇이미지.jpg)
+![image](https://github.com/HSORI-SLSL/BackEnd/assets/106041730/1750a83f-3579-4a04-8219-76bd8ca60540)
 
 ## 프로젝트 소개
 이 프로젝트는 프로젝트 SLSL의 백엔드 리포지토리입니다. 사용자들이 쉽게 역사 지식을 학습하고, 퀴즈를 풀어보고, 공부 방에서 내용을 복습하며, 연관 콘텐츠를 추천받을 수 있는 다양한 기능을 제공합니다.
@@ -46,4 +45,7 @@ python chatbot.py
 - MySQL (데이터베이스)
 - AWS EC2
 - AWS RDS
+- docker
+- TensorFlow
+- websocket
 
